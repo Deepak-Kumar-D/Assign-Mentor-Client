@@ -33,7 +33,7 @@ function NewStudent() {
       <h1 className="title">Create Student</h1>
 
       <div className="imgDiv">
-        {/* <img className="imgBG" src="/images/codes.jpg" alt="bg" /> */}
+        <img className="imgBG" src="/images/codes.jpg" alt="bg" />
       </div>
 
       <div className="f-screen main">
@@ -58,7 +58,7 @@ function NewStudent() {
             {errors.email && "⚠ Please fill the email!"}
           </p>
 
-          <input type="submit" />
+          <input className="btn" type="submit" />
         </form>
       </div>
     </div>

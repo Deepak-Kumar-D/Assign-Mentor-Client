@@ -8,8 +8,8 @@ function ShowMentor() {
     setSlist(std);
   };
 
-  const MentorList = async () => {
-    try {
+  useEffect(() => {
+    const MentorList = async () => {
       const obj = await fetch("http://localhost:5002/getMentor", {
         method: "GET",
         headers: {
@@ -19,17 +19,8 @@ function ShowMentor() {
       const mentor = await obj.json();
 
       setList(mentor);
+    };
 
-      if (obj.status !== 200) {
-        const error = new Error(obj.error);
-        throw error;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
     MentorList();
   });
   return (
@@ -37,7 +28,7 @@ function ShowMentor() {
       <h1 className="title">Show Mentor</h1>
 
       <div className="imgDiv">
-        {/* <img className="imgBG" src="/images/codes.jpg" alt="bg" /> */}
+        <img className="imgBG" src="/images/codes.jpg" alt="bg" />
       </div>
 
       <section className="f-screen dualScreen">

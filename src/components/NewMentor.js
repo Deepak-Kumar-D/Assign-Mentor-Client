@@ -58,7 +58,7 @@ function NewMentor() {
             {errors.email && "⚠ Please fill the email!"}
           </p>
 
-          <input type="submit" />
+          <input className="btn" type="submit" />
         </form>
       </div>
     </div>

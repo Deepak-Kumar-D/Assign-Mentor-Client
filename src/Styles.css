@@ -14,12 +14,13 @@ body {
   display: flex;
 }
 
+/* Navbar */
 .navBar {
   display: flex;
   width: 20%;
   min-height: 100vh;
   background-color: rgb(255, 255, 255);
-  box-shadow: 0 0 8px 3px rgb(16, 16, 17);
+  box-shadow: 0 0 10px 3px rgb(42, 42, 43);
 }
 
 .navBar ul {
@@ -59,6 +60,7 @@ a {
   width: 80%;
 }
 
+/* All the router components basic adjustments */
 .panel {
   width: 100%;
   height: 100%;
@@ -67,24 +69,12 @@ a {
   flex-direction: column;
 }
 
+/* Title in the default page */
 .home {
   justify-content: center;
   font-size: 3rem;
   text-align: center;
-  text-shadow: 5px 5px 5px rgb(15, 15, 15);
-}
-
-.imgDiv {
-  position: absolute;
-  overflow: hidden;
-  height: 100%;
-  z-index: -1;
-}
-
-.imgBG {
-  filter: grayscale(0.5);
-  opacity: 0.2;
-  width: 100%;
+  text-shadow: 5px 5px 5px rgb(44, 44, 44);
 }
 
 .title {
@@ -98,49 +88,41 @@ a {
   background-color: #132c33;
 }
 
+/* Backdrop Image */
+.imgDiv {
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  z-index: -1;
+}
+
+.imgBG {
+  filter: grayscale(0.5);
+  opacity: 0.2;
+  width: 100%;
+  height: 100%;
+}
+
 .f-screen {
   display: flex;
   height: 100%;
   margin: 2rem;
 }
 
+/* Dual Panel's common styling of the components */
 .dualScreen ul {
   width: 100%;
   margin: 2rem;
   padding: 1rem;
   list-style: none;
   font-size: 1.2rem;
-  cursor: pointer;
   font-weight: 500;
   box-shadow: 5px 1px 8px 2px #053c63;
   border-radius: 5px;
 }
 
-.dualScreen h2 {
-  color: #e6f1f5;
-  text-shadow: 2px 1px 2px rgb(15, 15, 15);
-  text-align: center;
-  margin-top: 50%;
-}
-
-.mentorSide {
-  background-color: #8ab6d6;
-  color: #132c33;
-}
-
-.showStudent {
-  pointer-events: none;
-}
-
-.studentSide {
-  background-color: #132c33;
-}
-
-.studentSide {
-  color: #132c33;
-}
-
 .dualScreen li {
+  cursor: pointer;
   padding: 0.5rem;
   margin: 0.5rem 0;
   background-color: #d8e3e7;
@@ -153,28 +135,56 @@ a {
   color: #d8e3e7;
 }
 
+.dualScreen h2 {
+  color: #e6f1f5;
+  text-shadow: 2px 1px 2px rgb(15, 15, 15);
+  text-align: center;
+  margin-top: 50%;
+}
+
+/* Mentor panel */
+.mentorSide {
+  background-color: #8ab6d65b;
+  color: #132c33;
+  backdrop-filter: blur(4px);
+}
+
+/* Student panel */
+.studentSide {
+  background-color: #132c3398;
+  color: #132c33;
+  backdrop-filter: blur(4px);
+}
+
+/* Student panel in ShowMentor component */
+.showStudent {
+  pointer-events: none;
+}
+
 .main {
   justify-content: center;
   align-items: center;
 }
 
+/* Form styling */
 form {
   display: flex;
   height: 80%;
   width: 50%;
-  padding: 1rem;
+  padding: 1rem 3rem;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: #8ab6d6;
+  background-color: #8ab6d65b;
   border-radius: 3px;
   box-shadow: 1px 3px 8px 2px #053c63;
+  backdrop-filter: blur(4px);
 }
 
-label {
+form label {
   color: #d8e3e7;
   margin: 0.5rem 0;
-  padding: 0.5rem;
-  background-color: #132c33;
+  padding: 1rem;
+  background-color: #132c33a9;
   font-size: 1.2rem;
   font-weight: 300;
   border-radius: 3px;
@@ -182,7 +192,7 @@ label {
 
 input[type="text"] {
   margin: 0.5rem 0;
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: #e6f1f5;
   color: #132c33;
   font-size: 1.2rem;
@@ -193,65 +203,12 @@ input[type="text"] {
 
 input[type="submit"] {
   margin: 0.5rem 0;
-  padding: 0.5rem;
-  background-color: #132c33;
-  color: #d8e3e7;
-  font-size: 1.3rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  border-radius: 3px;
-  border: none;
-  cursor: pointer;
-  transition: 0.5s;
-}
-
-input[type="submit"]:hover {
-  background-color: #0061a8;
-}
-
-.message {
-  color: #132c33;
-  font-weight: 500;
-  border-radius: 3px;
-}
-
-.p-align {
-  margin-top: 2rem;
-  padding: 0.5rem;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #0061a8;
   background-color: #d8e3e7;
+  color: #053c63;
 }
 
-.chkBox {
-  display: flex;
-  align-items: center;
-}
-
-.chkBox input {
-  font-size: 1rem;
-}
-
-.chkBox span {
-  width: 100%;
-}
-
-.chkBox input {
-  appearance: none;
-  background: white;
-  border: 1px solid gray;
-  width: 15px;
-  height: 15px;
-}
-.chkBox input:checked {
-  background-color: #d68a8a;
-  border-color: #fd2e2e;
-}
-
-.assign-btn {
-  margin: 0 4rem 1rem 4rem;
+/* Button styling */
+.btn {
   padding: 1rem;
   font-size: 1.4rem;
   font-weight: 400;
@@ -263,8 +220,55 @@ input[type="submit"]:hover {
   transition: 0.5s;
 }
 
-.assign-btn:hover {
+.btn:hover {
   background-color: #8ad68e;
+  color: #405f42;
   letter-spacing: 4px;
+}
+
+.assign-btn {
+  margin: 0 4rem 1rem 4rem;
+}
+
+/* Error in the forms */
+.message {
+  color: #132c33;
   font-weight: 500;
+  border-radius: 3px;
+}
+
+/* paragraph alignment */
+.p-align {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #0061a8;
+  background-color: #d8e3e7;
+}
+
+/* Custom radio/checkbox styling */
+.chkBox {
+  display: flex;
+  align-items: center;
+}
+
+.chkBox label {
+  width: 100%;
+  cursor: pointer;
+}
+
+.chkBox input {
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none;
+  background: white;
+  border: 1px solid gray;
+  width: 15px;
+  height: 15px;
+}
+
+.chkBox input:checked {
+  background-color: #d68a8a;
+  border-color: #fd2e2e;
 }
