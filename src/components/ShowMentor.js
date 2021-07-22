@@ -5,10 +5,6 @@ function ShowMentor() {
   const [slist, setSlist] = useState([]);
 
   const showStudent = (std) => {
-    // // console.log(std);
-    // std.map((el) => {
-    //   return console.log(el.studentName);
-    // });
     setSlist(std);
   };
 
@@ -21,7 +17,6 @@ function ShowMentor() {
         },
       });
       const mentor = await obj.json();
-      // console.log(mentor);
 
       setList(mentor);
 
@@ -41,6 +36,10 @@ function ShowMentor() {
     <div className="panel">
       <h1 className="title">Show Mentor</h1>
 
+      <div className="imgDiv">
+        {/* <img className="imgBG" src="/images/codes.jpg" alt="bg" /> */}
+      </div>
+
       <section className="f-screen dualScreen">
         <ul className="mentorSide">
           {list.map((mentor) => {
@@ -51,7 +50,7 @@ function ShowMentor() {
             );
           })}
         </ul>
-        <ul className="studentSide">
+        <ul className="studentSide showStudent">
           {slist.length === 0 ? (
             <h2>Please Select the Mentor!</h2>
           ) : (

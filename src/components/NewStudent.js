@@ -31,6 +31,11 @@ function NewStudent() {
   return (
     <div className="panel">
       <h1 className="title">Create Student</h1>
+
+      <div className="imgDiv">
+        {/* <img className="imgBG" src="/images/codes.jpg" alt="bg" /> */}
+      </div>
+
       <div className="f-screen main">
         <form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="name">Student Name</label>
