@@ -21,7 +21,7 @@ function NewStudent() {
   // On Submit will create the new student
   const onSubmit = async (data) => {
     setLoading(true);
-    await fetch("http://localhost:5002/createStudent", {
+    await fetch("https://react-assign-mentor.herokuapp.com/createStudent", {
       method: "POST",
       headers: {
         "Content-Type": "application/JSON",

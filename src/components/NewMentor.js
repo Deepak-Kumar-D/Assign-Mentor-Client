@@ -22,7 +22,7 @@ function NewMentor() {
   // On submit will create the new mentor
   const onSubmit = async (data) => {
     setLoading(true);
-    await fetch("http://localhost:5002/createMentor", {
+    await fetch("https://react-assign-mentor.herokuapp.com/createMentor", {
       method: "POST",
       headers: {
         "Content-Type": "application/JSON",

@@ -19,9 +19,12 @@ function AssignStudent() {
   // Fetching the student data on router page load
   const StudentList = async () => {
     setLoading(true);
-    const obj = await fetch("http://localhost:5002/getStudent", {
-      method: "GET",
-    });
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/getStudent",
+      {
+        method: "GET",
+      }
+    );
 
     const sdata = await obj.json();
     setSlist(sdata);
@@ -31,7 +34,7 @@ function AssignStudent() {
   // Assigning the array of students to the selected mentor
   const Assign = async () => {
     setLoading(true);
-    await fetch("http://localhost:5002/updateMentor", {
+    await fetch("https://react-assign-mentor.herokuapp.com/updateMentor", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/JSON",
@@ -52,9 +55,12 @@ function AssignStudent() {
     // Fetching the mentor data on router page load
     const MentorList = async () => {
       setLoading(true);
-      const obj = await fetch("http://localhost:5002/getMentor", {
-        method: "GET",
-      });
+      const obj = await fetch(
+        "https://react-assign-mentor.herokuapp.com/getMentor",
+        {
+          method: "GET",
+        }
+      );
 
       const mdata = await obj.json();
       setMlist(mdata);

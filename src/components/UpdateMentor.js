@@ -23,12 +23,15 @@ function UpdateMentor() {
   // Fetching the mentor list on router load along with the students list
   const MentorList = async () => {
     setLoading(true);
-    const obj = await fetch("http://localhost:5002/getMentor", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/JSON",
-      },
-    });
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/getMentor",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+      }
+    );
     const mentor = await obj.json();
     setMlist(mentor);
     setLoading(false);
@@ -37,9 +40,12 @@ function UpdateMentor() {
   // Fetching the student data on router load
   const StudentList = async () => {
     setLoading(true);
-    const obj = await fetch("http://localhost:5002/getStudent", {
-      method: "GET",
-    });
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/getStudent",
+      {
+        method: "GET",
+      }
+    );
 
     const sdata = await obj.json();
     setSlist(sdata);
@@ -49,7 +55,7 @@ function UpdateMentor() {
   // Function for assigning the new Mentor
   const Update = async () => {
     setLoading(true);
-    await fetch("http://localhost:5002/updateStudent", {
+    await fetch("https://react-assign-mentor.herokuapp.com/updateStudent", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/JSON",

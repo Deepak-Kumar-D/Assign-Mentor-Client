@@ -16,12 +16,15 @@ function ShowMentor() {
   useEffect(() => {
     const MentorList = async () => {
       setLoading(true);
-      const obj = await fetch("http://localhost:5002/getMentor", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/JSON",
-        },
-      });
+      const obj = await fetch(
+        "https://react-assign-mentor.herokuapp.com/getMentor",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/JSON",
+          },
+        }
+      );
       const mentor = await obj.json();
       setLoading(false);
       setList(mentor);
