@@ -12,6 +12,7 @@ export const showLoad = createContext(null);
 
 function App() {
   const [loading, setLoading] = useState(false);
+
   return (
     <showLoad.Provider value={{ loading, setLoading }}>
       <div className="App">
