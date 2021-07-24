@@ -49,16 +49,20 @@ function ShowMentor() {
           <section className="f-screen dualScreen">
             {/* This will show the mentor list on the router page load and the selection function is added to it which will display the students under a mentor */}
             <ul className="mentorSide">
-              {list.map((mentor) => {
-                return (
-                  <li
-                    key={mentor._id}
-                    onClick={() => showStudent(mentor.students)}
-                  >
-                    {mentor.name}
-                  </li>
-                );
-              })}
+              {!list.length ? (
+                <h2>Please Create New Mentors!</h2>
+              ) : (
+                list.map((mentor) => {
+                  return (
+                    <li
+                      key={mentor._id}
+                      onClick={() => showStudent(mentor.students)}
+                    >
+                      {mentor.name}
+                    </li>
+                  );
+                })
+              )}
             </ul>
 
             {/* This will show the student of the selected mentor in a single panel */}

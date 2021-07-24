@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { showLoad } from "../App";
 import { BeatLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AssignStudent() {
   const { loading, setLoading } = useContext(showLoad);
@@ -14,6 +16,21 @@ function AssignStudent() {
     const temp = [...student];
     temp.push(stud);
     setStudent(temp);
+  };
+
+  // Fetching the mentor data on router page load
+  const MentorList = async () => {
+    setLoading(true);
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/getMentor",
+      {
+        method: "GET",
+      }
+    );
+
+    const mdata = await obj.json();
+    setMlist(mdata);
+    setLoading(false);
   };
 
   // Fetching the student data on router page load
@@ -34,42 +51,43 @@ function AssignStudent() {
   // Assigning the array of students to the selected mentor
   const Assign = async () => {
     setLoading(true);
-    await fetch("https://react-assign-mentor.herokuapp.com/updateMentor", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/JSON",
-      },
-      body: JSON.stringify({
-        mentorId: mentor,
-        studentId: student,
-      }),
-    });
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/updateMentor",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+        body: JSON.stringify({
+          mentorId: mentor,
+          studentId: student,
+        }),
+      }
+    );
 
-    setMentor();
-    setStudent([]);
-    setLoading(false);
-    StudentList();
+    if (obj.status !== 200) {
+      setLoading(false);
+      toast.error("Try again!", { position: "bottom-right", autoClose: 2000 });
+    } else {
+      setMentor();
+      setStudent([]);
+
+      setTimeout(() => {
+        StudentList();
+        setLoading(false);
+      }, [1000]);
+
+      toast.success("Student assigned successfully", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
   };
 
   useEffect(() => {
-    // Fetching the mentor data on router page load
-    const MentorList = async () => {
-      setLoading(true);
-      const obj = await fetch(
-        "https://react-assign-mentor.herokuapp.com/getMentor",
-        {
-          method: "GET",
-        }
-      );
-
-      const mdata = await obj.json();
-      setMlist(mdata);
-      setLoading(false);
-    };
-
     MentorList();
     StudentList();
-  }, [setStudent]);
+  }, []);
   return (
     <>
       {loading ? (
@@ -90,46 +108,50 @@ function AssignStudent() {
           <section className="f-screen dualScreen">
             {/* Listing the list of mentors on one panel and adding the selection function to it */}
             <ul className="mentorSide">
-              {!mlist.length
-                ? "loading"
-                : mlist.map((mEle) => {
-                    return (
-                      <li className="chkBox" key={mEle._id}>
-                        <label htmlFor={mEle._id}>{mEle.name}</label>
+              {!mlist.length ? (
+                <h2>Please Create New Mentors!</h2>
+              ) : (
+                mlist.map((mEle) => {
+                  return (
+                    <li className="chkBox" key={mEle._id}>
+                      <label htmlFor={mEle._id}>{mEle.name}</label>
 
-                        <input
-                          type="radio"
-                          id={mEle._id}
-                          name="ment"
-                          onClick={() => setMentor(mEle._id)}
-                        />
-                      </li>
-                    );
-                  })}
+                      <input
+                        type="radio"
+                        id={mEle._id}
+                        name="ment"
+                        onClick={() => setMentor(mEle._id)}
+                      />
+                    </li>
+                  );
+                })
+              )}
             </ul>
 
             {/* List of available students who do not have mentors are listed on one panel and the selection function are added to it */}
             <ul className="studentSide">
-              {!slist.length
-                ? "loading"
-                : slist.map((sEle) => {
-                    return (
-                      <div key={sEle._id}>
-                        {!sEle.status ? (
-                          <li className="chkBox">
-                            <label htmlFor={sEle._id}>{sEle.name}</label>
-                            <input
-                              type="checkbox"
-                              id={sEle._id}
-                              onClick={() => AddStudents(sEle._id)}
-                            />
-                          </li>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    );
-                  })}
+              {!slist.length ? (
+                <h2>Please Create New Students!</h2>
+              ) : (
+                slist.map((sEle) => {
+                  return (
+                    <div key={sEle._id}>
+                      {!sEle.status ? (
+                        <li className="chkBox">
+                          <label htmlFor={sEle._id}>{sEle.name}</label>
+                          <input
+                            type="checkbox"
+                            id={sEle._id}
+                            onClick={() => AddStudents(sEle._id)}
+                          />
+                        </li>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  );
+                })
+              )}
             </ul>
           </section>
 
@@ -139,6 +161,7 @@ function AssignStudent() {
           </button>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 }

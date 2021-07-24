@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { useContext } from "react";
 import { showLoad } from "../App";
 import { BeatLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -14,6 +16,7 @@ function NewStudent() {
   const { loading, setLoading } = useContext(showLoad);
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
@@ -21,17 +24,31 @@ function NewStudent() {
   // On Submit will create the new student
   const onSubmit = async (data) => {
     setLoading(true);
-    await fetch("https://react-assign-mentor.herokuapp.com/createStudent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/JSON",
-      },
-      body: JSON.stringify({
-        name: data.name,
-        email: data.email,
-      }),
-    });
-    setLoading(false);
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/createStudent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+        }),
+      }
+    );
+
+    if (obj.status !== 200) {
+      setLoading(false);
+      toast.error("Try again!", { position: "bottom-right", autoClose: 2000 });
+    } else {
+      reset();
+      setLoading(false);
+      toast.success("Student created successfully", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
   };
   return (
     <>
@@ -76,6 +93,7 @@ function NewStudent() {
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 }

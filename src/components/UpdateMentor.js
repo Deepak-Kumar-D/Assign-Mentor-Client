@@ -2,9 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { showLoad } from "../App";
 import { BeatLoader } from "react-spinners";
 import { BiEdit } from "react-icons/bi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useHistory } from "react-router-dom";
 
 function UpdateMentor() {
   const { loading, setLoading } = useContext(showLoad);
+  const history = useHistory();
 
   const [list, setList] = useState();
   const [slist, setSlist] = useState([]);
@@ -55,18 +59,33 @@ function UpdateMentor() {
   // Function for assigning the new Mentor
   const Update = async () => {
     setLoading(true);
-    await fetch("https://react-assign-mentor.herokuapp.com/updateStudent", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/JSON",
-      },
-      body: JSON.stringify({
-        newMentorId: newMentor,
-        studentId: student,
-      }),
-    });
-    setLoading(false);
-    StudentList();
+    const obj = await fetch(
+      "https://react-assign-mentor.herokuapp.com/updateStudent",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+        body: JSON.stringify({
+          newMentorId: newMentor,
+          studentId: student,
+        }),
+      }
+    );
+
+    if (obj.status !== 200) {
+      setLoading(false);
+      toast.error("Try again!", { position: "bottom-right", autoClose: 2000 });
+    } else {
+      setOtherMentor([]);
+      setLoading(false);
+
+      toast.success("Mentor updated successfully", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+      history.push("/update-mentor");
+    }
   };
 
   // Showing the other mentors list
@@ -106,7 +125,7 @@ function UpdateMentor() {
           </p>
 
           <section className="f-screen dualScreen">
-            {/* This will show the list of students who have a mentor and the selectio function is added to it */}
+            {/* This will show the list of students who have a mentor and the selection function is added to it */}
             <ul className="mentorSide">
               {slist.map((ele) => {
                 return ele.status ? (
@@ -178,6 +197,7 @@ function UpdateMentor() {
           </button>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 }
