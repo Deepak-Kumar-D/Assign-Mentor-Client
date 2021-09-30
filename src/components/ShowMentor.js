@@ -42,10 +42,6 @@ function ShowMentor() {
         <div className="panel">
           <h1 className="title">Show Mentor</h1>
 
-          <div className="imgDiv">
-            <img className="imgBG" src="/images/codes.jpg" alt="bg" />
-          </div>
-
           <section className="f-screen dualScreen">
             {/* This will show the mentor list on the router page load and the selection function is added to it which will display the students under a mentor */}
             <ul className="mentorSide">

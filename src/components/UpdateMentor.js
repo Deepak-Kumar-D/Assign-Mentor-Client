@@ -24,38 +24,6 @@ function UpdateMentor() {
     setOtherMentor([]);
   };
 
-  // Fetching the mentor list on router load along with the students list
-  const MentorList = async () => {
-    setLoading(true);
-    const obj = await fetch(
-      "https://react-assign-mentor.herokuapp.com/getMentor",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/JSON",
-        },
-      }
-    );
-    const mentor = await obj.json();
-    setMlist(mentor);
-    setLoading(false);
-  };
-
-  // Fetching the student data on router load
-  const StudentList = async () => {
-    setLoading(true);
-    const obj = await fetch(
-      "https://react-assign-mentor.herokuapp.com/getStudent",
-      {
-        method: "GET",
-      }
-    );
-
-    const sdata = await obj.json();
-    setSlist(sdata);
-    setLoading(false);
-  };
-
   // Function for assigning the new Mentor
   const Update = async () => {
     setLoading(true);
@@ -101,9 +69,40 @@ function UpdateMentor() {
 
   // UseEffect to load the Mentor list and the Student list on the router page load
   useEffect(() => {
+    // Fetching the mentor list on router load along with the students list
+    const MentorList = async () => {
+      setLoading(true);
+      const obj = await fetch(
+        "https://react-assign-mentor.herokuapp.com/getMentor",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/JSON",
+          },
+        }
+      );
+      const mentor = await obj.json();
+      setMlist(mentor);
+      setLoading(false);
+    };
+
+    // Fetching the student data on router load
+    const StudentList = async () => {
+      setLoading(true);
+      const obj = await fetch(
+        "https://react-assign-mentor.herokuapp.com/getStudent",
+        {
+          method: "GET",
+        }
+      );
+
+      const sdata = await obj.json();
+      setSlist(sdata);
+      setLoading(false);
+    };
     MentorList();
     StudentList();
-  }, []);
+  }, [setLoading]);
 
   return (
     <>
@@ -114,10 +113,6 @@ function UpdateMentor() {
       ) : (
         <div className="panel">
           <h1 className="title">Update Mentor</h1>
-
-          <div className="imgDiv">
-            <img className="imgBG" src="/images/codes.jpg" alt="bg" />
-          </div>
 
           <p className="p-align">
             Click <strong>Update</strong> after selecting the new mentor for a

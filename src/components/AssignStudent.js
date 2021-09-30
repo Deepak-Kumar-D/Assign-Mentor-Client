@@ -87,7 +87,7 @@ function AssignStudent() {
   useEffect(() => {
     MentorList();
     StudentList();
-  }, []);
+  });
   return (
     <>
       {loading ? (
@@ -97,9 +97,7 @@ function AssignStudent() {
       ) : (
         <div className="panel">
           <h1 className="title">Assign Student</h1>
-          <div className="imgDiv">
-            <img className="imgBG" src="/images/codes.jpg" alt="bg" />
-          </div>
+
           <p className="p-align">
             Click <strong>Assign</strong> after selecting any one mentor and the
             required students under them.

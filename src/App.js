@@ -40,6 +40,10 @@ function App() {
         </div>
 
         <div className="container">
+          <div className="imgDiv">
+            <img className="imgBG" src="/images/codes.jpg" alt="bg" />
+          </div>
+
           <Switch>
             <Route exact path="/">
               <Home />
