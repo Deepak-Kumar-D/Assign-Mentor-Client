@@ -69,6 +69,7 @@ function UpdateMentor() {
 
   // UseEffect to load the Mentor list and the Student list on the router page load
   useEffect(() => {
+    let isSubscribed = true;
     // Fetching the mentor list on router load along with the students list
     const MentorList = async () => {
       setLoading(true);
@@ -100,9 +101,16 @@ function UpdateMentor() {
       setSlist(sdata);
       setLoading(false);
     };
-    MentorList();
-    StudentList();
-  }, [setLoading]);
+
+    if (isSubscribed) {
+      MentorList();
+      StudentList();
+    }
+
+    return () => {
+      isSubscribed = false;
+    };
+  }, [setLoading, setMlist, setSlist]);
 
   return (
     <>

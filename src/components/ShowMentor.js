@@ -14,6 +14,8 @@ function ShowMentor() {
 
   // Fetching the mentor on the router page load
   useEffect(() => {
+    let isSubscribed = true;
+
     const MentorList = async () => {
       setLoading(true);
       const obj = await fetch(
@@ -30,8 +32,14 @@ function ShowMentor() {
       setList(mentor);
     };
 
-    MentorList();
-  }, [setLoading]);
+    if (isSubscribed) {
+      MentorList();
+    }
+
+    return () => {
+      isSubscribed = false;
+    };
+  }, [setLoading, setList]);
   return (
     <>
       {loading ? (

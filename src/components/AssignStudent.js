@@ -18,36 +18,6 @@ function AssignStudent() {
     setStudent(temp);
   };
 
-  // Fetching the mentor data on router page load
-  const MentorList = async () => {
-    setLoading(true);
-    const obj = await fetch(
-      "https://react-assign-mentor.herokuapp.com/getMentor",
-      {
-        method: "GET",
-      }
-    );
-
-    const mdata = await obj.json();
-    setMlist(mdata);
-    setLoading(false);
-  };
-
-  // Fetching the student data on router page load
-  const StudentList = async () => {
-    setLoading(true);
-    const obj = await fetch(
-      "https://react-assign-mentor.herokuapp.com/getStudent",
-      {
-        method: "GET",
-      }
-    );
-
-    const sdata = await obj.json();
-    setSlist(sdata);
-    setLoading(false);
-  };
-
   // Assigning the array of students to the selected mentor
   const Assign = async () => {
     setLoading(true);
@@ -73,7 +43,7 @@ function AssignStudent() {
       setStudent([]);
 
       setTimeout(() => {
-        StudentList();
+        // StudentList();
         setLoading(false);
       }, [1000]);
 
@@ -85,9 +55,46 @@ function AssignStudent() {
   };
 
   useEffect(() => {
-    MentorList();
-    StudentList();
-  });
+    let isSubscribed = true;
+    // Fetching the mentor data on router page load
+    const MentorList = async () => {
+      setLoading(true);
+      const obj = await fetch(
+        "https://react-assign-mentor.herokuapp.com/getMentor",
+        {
+          method: "GET",
+        }
+      );
+
+      const mdata = await obj.json();
+      setMlist(mdata);
+      setLoading(false);
+    };
+
+    // Fetching the student data on router page load
+    const StudentList = async () => {
+      setLoading(true);
+      const obj = await fetch(
+        "https://react-assign-mentor.herokuapp.com/getStudent",
+        {
+          method: "GET",
+        }
+      );
+
+      const sdata = await obj.json();
+      setSlist(sdata);
+      setLoading(false);
+    };
+
+    if (isSubscribed) {
+      MentorList();
+      StudentList();
+    }
+
+    return () => {
+      isSubscribed = false;
+    };
+  }, [setLoading, setMlist, setSlist]);
   return (
     <>
       {loading ? (
