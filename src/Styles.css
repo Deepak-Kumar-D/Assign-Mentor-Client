@@ -20,8 +20,8 @@ body {
   display: flex;
   width: 15%;
   min-height: 100vh;
-  background-color: rgba(255, 255, 255, 0.418);
-  box-shadow: 0 0 10px 3px rgb(42, 42, 43);
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 3px #2a2a2b91;
 }
 
 .navBar ul {
@@ -51,10 +51,15 @@ a {
 }
 
 .navBar li:hover {
-  background-color: #8ab6d6;
+  background-color: #132c33;
   cursor: pointer;
   transform: scale(0.9);
   height: 100%;
+}
+
+.navBar li:hover a {
+  color: #ffffff;
+  letter-spacing: 2px;
 }
 
 .container {
